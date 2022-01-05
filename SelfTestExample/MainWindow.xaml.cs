@@ -49,20 +49,18 @@ namespace SelfTestExample
 
         private void SelfTestMessageBased(string resource)
         {
-            string id = "";
             try
             {
                 IMessageBasedSession session = GlobalResourceManager.Open(resource) as IMessageBasedSession;
-                id = session.ResourceName;
                 session.TimeoutMilliseconds = 3000;
                 session.FormattedIO.WriteLine("*TST?");
                 string result = session.FormattedIO.ReadLine();
-                SelfTestResults.Items.Add(new SelfTestViewModel(id, 1, result));
+                SelfTestResults.Items.Add(new SelfTestViewModel(session.ResourceName, 1, result));
                 session.Dispose();
             }
             catch (Exception ex)
             {
-                SelfTestResults.Items.Add(new SelfTestViewModel(id, -1, ex.Message));
+                SelfTestResults.Items.Add(new SelfTestViewModel(resource, -1, ex.Message));
             }
         }
     }
