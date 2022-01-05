@@ -44,6 +44,7 @@ namespace SelfTestExample
             IIviDriver driver = IviDriver.Create(resource);
             SelfTestResult selfTestResult = driver.Utility.SelfTest();
             SelfTestResults.Items.Add(new SelfTestViewModel(driver.Identity.Identifier, selfTestResult.Code, selfTestResult.Message));
+            driver.Close();
         }
 
         private void SelfTestMessageBased(string resource)
